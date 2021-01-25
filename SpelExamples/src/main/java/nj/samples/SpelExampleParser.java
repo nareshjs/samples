@@ -6,14 +6,22 @@ import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 @Slf4j
+@SpringBootApplication
 public class SpelExampleParser implements CommandLineRunner {
   public static void main(String[] args) {
+    SpringApplication.run(SpelExampleParser.class, args);
+  }
+
+  @Override
+  public void run(String... args) throws Exception {
     ExpressionParser parser = new SpelExpressionParser();
 
     Expression expression = parser.parseExpression("'Hi'");
@@ -54,10 +62,5 @@ public class SpelExampleParser implements CommandLineRunner {
     String fullNameEval = expression.getValue(context, String.class);
     parser.parseExpression("fullName").setValue(context, fullNameEval);
     log.info(student.getFullName());
-  }
-
-  @Override
-  public void run(String... args) throws Exception {
-    SpelExampleParser.main(args);
   }
 }
